@@ -85,7 +85,7 @@
 (setq linum-format "%-3d")
 
 (ivy-mode)
-
+(setq vc-follow-symlinks t)
 (with-eval-after-load 'ivy
   (setq ivy-use-virtual-buffers t
         ivy-re-builders-alist '((t . ivy--regex-ignore-order))
