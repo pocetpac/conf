@@ -12,7 +12,7 @@
  '(custom-enabled-themes (quote (misterioso)))
  '(inhibit-startup-screen t)
  '(line-number-mode t)
- '(package-selected-packages (quote (php-mode swiper magit ivy)))
+ '(package-selected-packages (quote (ag amx php-mode swiper magit ivy)))
  '(show-paren-mode t))
 
 (global-linum-mode 1)
@@ -20,13 +20,29 @@
 (setq linum-format "%-3d")
 
 (ivy-mode)
+(counsel-mode)
 (setq vc-follow-symlinks t)
+
 (with-eval-after-load 'ivy
   (setq ivy-use-virtual-buffers t
         ivy-re-builders-alist '((t . ivy--regex-ignore-order))
         ivy-virtual-abbreviate 'full
         enable-recursive-minibuffers t
         recentf-max-saved-items nil))
+
+(setq-default fill-column 78)
+
+(with-eval-after-load 'whitespace
+  (setq whitespace-line-column nil
+        whitespace-style '(face trailing lines-tail space-before-tab newline
+                                indentation empty space-after-tab)))
+
+(with-eval-after-load 'ag
+  (setq ag-highlight-search t)
+  (setq-default ag-ignore-list '("*.svg" ".git"))
+  (dolist (ag-args '(ag-arguments ag-dired-arguments))
+    (set ag-args `("--depth=-1" "--follow" "--silent" "--hidden"
+                   ,@(symbol-value ag-args)))))
 
 (add-hook 'c-mode-common-hook '(lambda () (c-set-style "linux")))
 (global-set-key (kbd "C-x g") 'magit-status)
