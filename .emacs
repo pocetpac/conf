@@ -1,7 +1,19 @@
-(package-initialize)
-
+(require 'package)
 (add-to-list 'package-archives
              '("melpa" . "https://melpa.org/packages/") t)
+
+(package-initialize)
+(setq package-list '(ag amx php-mode swiper magit ivy counsel))
+(unless package-archive-contents
+  (package-refresh-contents))
+(dolist (package package-list)
+  (unless (package-installed-p package)
+    (package-install package)))
+
+(global-linum-mode 1)
+
+(setq linum-format "%-3d"
+      visible-bell 1)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -14,10 +26,6 @@
  '(line-number-mode t)
  '(package-selected-packages (quote (ag amx php-mode swiper magit ivy)))
  '(show-paren-mode t))
-
-(global-linum-mode 1)
-
-(setq linum-format "%-3d")
 
 (ivy-mode)
 (counsel-mode)
@@ -47,7 +55,12 @@
 (add-hook 'c-mode-common-hook '(lambda () (c-set-style "linux")))
 (global-set-key (kbd "C-x g") 'magit-status)
 (global-set-key (kbd "C-s") 'swiper)
-
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages (quote (counsel magit swiper php-mode amx ag))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
