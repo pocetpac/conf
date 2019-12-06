@@ -31,6 +31,10 @@
 (counsel-mode)
 (setq vc-follow-symlinks t)
 
+(with-eval-after-load 'dired
+  (setq dired-dwim-target t
+        dired-listing-switches "-lha"))
+
 (with-eval-after-load 'ivy
   (setq ivy-use-virtual-buffers t
         ivy-re-builders-alist '((t . ivy--regex-ignore-order))
